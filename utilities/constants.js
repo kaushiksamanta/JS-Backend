@@ -1,0 +1,132 @@
+var myContext = this;
+
+function define(obj, name, value) {
+    Object.defineProperty(obj, name, {
+        value: value,
+        enumerable: true,
+        writable: false,
+        configurable: true
+    });
+}
+
+var debugging = false;
+
+var responseMessage = {
+    'ACTION_COMPLETE'                   : 'Action complete.',
+    'INVALID_ACCESS'                    : 'Invalid access',
+    'VEHICLE_ALREADY_EXISTS'            : 'Vehicle already exists',
+    'ADDITIONAL_SERVICE_ALREADY_EXISTS' : 'Additional service already exists',
+    'SERVICE_SCOPE_ALREADY_EXISTS'      : 'Service scope already exists',
+    'MATERIAL_ALREADY_EXISTS'           : 'Material already exists',
+    'SERVICE_ALREADY_EXISTS'            : 'Service already exists',
+    'REGISTRATION_SUCCESSFUL'           : 'You have been successfully registered.',
+    'INVALID_EMAIL_ID'                  : 'Invalid email id.',
+    'INVALID_FORGOT_PASSWORD_TOKEN'     : 'Invalid forgot password token.',
+    'LOGIN_SUCCESSFULLY'                : 'Logged in successfully.',
+    'LOGOUT_SUCCESSFULLY'               : 'Logged out successfully.',
+    'SHOW_ERROR_MESSAGE'                : 'Show error message.',
+    'ERROR_IN_EXECUTION'                : 'Error in execution.',
+    'PASSWORD_CHANGED_SUCCESSFULLY'     : 'Password changed successfully.',
+    'EMAIL_ALREADY_EXISTS'              : 'Email already registered',
+    'EMAIL_NOT_EXISTS'                  : 'Email not exists',
+    'PHONE_NUMBER_ALREADY_EXISTS'       : 'Phone number already exists.',
+    'NO_DATA'                           : 'No data.',
+    'INVALID_ACCESS_TOKEN'              : 'Invalid access token.',
+    'USER_BLOCKED'                      : 'User has blocked.',
+    'USER_DELETED'                      : 'User has deleted.',
+    'CUSTOMER_INFO_UPDATE'              : 'Customer info successfully updated',
+    'LOGIN_ERROR'                       : 'The email and password you entered do not match',
+    'SET_PASSWORD'                      : 'Password set successfully',
+    'UNAUTHORIZED_FB_ACCESS'            : 'Unauthorized facebook access',
+    'INVALID_FB_USER'                   : 'Invalid facebook user',
+    'INVALID_LINK'                      : 'Invalid link',
+    'ORDER_PLACED'                      : 'Your order has been successfully placed',
+    'VALID_LINK'                        : 'Link is valid',
+    'END_TIME_ERROR'                    : 'End time must be greater than start time',
+    'EXIST_VEHICLE_REGISTRATION_NO'     : 'Vehicle registration number already exists',
+    'INVALID_VERIFICATION_TOKEN'        : 'Invalid OTP',
+    'RESEND_VERIFICATION_TOKEN'         : 'Verification Code sent successfully',
+    'VERIFY_DRIVER_SIGN_UP'             : 'Driver verified successfully',
+    'DRIVER_ALREADY_VERIFIED'           : 'Driver already verified',
+    'CHECK_EXISTS_PHONE_NO'             : 'Mobile Number does not exists',
+    'DRIVER_NOT_VERIFIED'               : 'Driver not verified',
+    'CHECK_DRIVER_DELETE'               : 'Driver already deleted',
+    'CHECK_DRIVER_BLOCK'                : 'Driver already blocked',
+    'DRIVER_INFO_UPDATE'                : 'Driver info successfully updated',
+    'PHONE_NO_NOT_EXIST'                : 'Phone number does not exists',
+    'PHONE_LOGIN_ERROR'                 : 'The phone number and password you entered do not match',
+    'RESET_PASSWORD'                    : 'Password reset successfully',
+    'OLD_PASSWORD_NOT_MATCH'            : 'Incorrect old password',
+    'ERROR_OTP_SEND'                    : 'Error to send OTP',
+    'EXISTS_COMPANY_NAME'               : 'Company name already exists',
+    'ID_NOT_EXISTS'                     : 'Id not exists',
+    'INVALID_ID'                        : 'Invalid id',
+    'INVALID_ORDER_ID'                  : 'Invalid order id',
+    'ENGAGED_ORDER'                     : 'Order is engaged',
+    'INVALID_COMPANY_NAME'              : 'Invalid company name',
+    'DRIVER_LOGOUT'                     : 'Driver logout successfully',
+    'CUSTOMER_LOGOUT'                   : 'Customer logout successfully',
+    'ALREADY_LOGOUT'                    : 'Already logout',
+    'NO_AVAILABLE_DRIVER'               : 'Driver is not available at the moment',
+    'ORDER_ID_NOT_EXISTS'               : 'Order id not exists',
+    'ASSIGN_DRIVER'                     : 'Driver successfully assigned',
+    'DRIVER_ALREADY_ASSIGN'             : 'Driver already assigned',
+    'NO_AVAILABLE_BOOKING'              : 'No available booking',
+    'PARTNER_WITH_DIFFERENT_CITY'       : 'Partner belongs to different city',
+    'DRIVER_WITH_DIFFERENT_PARTNER'     : 'Driver belongs to different partner',
+    'DRIVER_WITH_DIFFERENT_SERVICE'     : 'Driver belongs to different service',
+    'DRIVER_WITH_DIFFERENT_VEHICLE'     : 'Driver belongs to different vehicle',
+    'VEHICLE_ID_REQUIRED'               : 'Vehicle id required',
+    'QUOTE_ACCEPTED'                    : 'Quote successfully accepted',
+    'QUOTE_ALREADY_ACCEPTED'            : 'Quote already accepted',
+    'SEND_QUOTE_LIST'                   : 'Quote list successfully send',
+    'PARTNER_QUOTE_NOT_ACCEPTED'        : 'Partner has not accepted quote yet',
+    'CHECK_SAME_CUSTOMER_ORDER'         : 'Customer belongs to different order',
+    'PARTNER_QUOTE_ALREADY_ACCEPTED'    : 'Partner quote already accepted',
+    'DRIVER_ALREADY_ACCEPTED_REQUEST'   : 'Driver already accepted request',
+    'QUOTE_LIST_ALREADY_SEND'           : 'Quote list already send',
+    'ID_REQUIRED'                       : 'Id required',
+    'CHECK_QUOTE_ACCEPTED'              : 'You have not accepted the quote',
+    'DRIVER_LOCATION_UPDATE'            : 'Driver location successfully updated',
+    'INVALID_REQUEST_STATUS'            : 'Invalid Request Status',
+    'CHECK_CUSTOMER_DELETE'             : 'Customer already deleted',
+    'CHECK_CUSTOMER_BLOCK'              : 'Customer already blocked',
+    'CUSTOMER_WITH_DIFFERENT_ORDER'     : 'Customer not belongs to this order',
+    'NO_AVAILABLE_NOTIFICATION'         : 'No available notification',
+    'CLEAR_NOTIFICATION'                : 'Notification successfully cleared',
+    'NOTIFICATION_ALREADY_CLEARED'      : 'Notification already cleared',
+    'NO_AVAILABLE_DATA'                 : 'No available data',
+    'FORGOT_PASSWORD_MESSAGE'           : 'Login with password sent on your mobile',
+    'DRIVER_REACHED_PICKUP_POINT'       : 'Driver reached at pickup point',
+    'DRIVER_PICKED_UP'                  : 'Parcel picked up',
+    'DRIVER_REACHED_DELIVERY_POINT'     : 'Driver reached at delivery point',
+    'DRIVER_ORDER_DELIVERED'            : 'Parcel delivered',
+    'PARTNER_ALREADY_SEND_QUOTE'        : 'Partner already send the quote',
+    'CUSTOMER_RESET_PASSWORD'           : 'An email has been sent to your registered email address to reset the password',
+    'CHECK_QUOTE_ACCEPTANCE'            : 'You are not able to assign driver, until your quote is accepted',
+    'SUCCESS_PAYMENT'                   : 'Payment created',
+    'CHECK_DRIVER_ACCEPTANCE_STATUS'    : 'You are not authorize to accept the order',
+    'DRIVER_REQUEST_ACCEPTANCE'         : 'Driver successfully accepted the request'
+
+};
+
+
+var STATUS_CODE = {
+    OK                      : 200,
+    CREATED                 : 201,
+    ACCEPTED                : 202,
+    NO_CONTENT              : 204,//Request processed but not returning any content
+    BAD_REQUEST             : 400,
+    UNAUTHORIZED            : 401,
+    PAYMENT_FAILURE         : 402,
+    FORBIDDEN               : 403,
+    NOT_FOUND               : 404,
+    ALREADY_EXISTS_CONFLICT : 409,
+    UNSUPPORTED_MEDIA_TYPE  : 415,
+    SERVER_ERROR            : 500
+};
+exports.TIMEZONE_OFFSET        = 0;
+exports.TIMESTAMP_FORMAT       = 'YYYY/MM/DD HH:mm';
+exports.DATE_FORMAT            = 'YYYY/MM/DD';
+module.exports.responseMessage = responseMessage;
+module.exports.STATUS_CODE     = STATUS_CODE;

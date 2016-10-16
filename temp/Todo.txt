@@ -1,0 +1,32 @@
+
+1. BOOKING FLOW
+CASE -01
+        If only two admin , both has send quote , both quote has rejected by customer . Then what to do by customer , how their order would be fullfilled.
+CASE -02
+      After reached driver at pickedup location, can customer cancel ride .
+      And
+CASE -03
+      If no one admin is available related to order then what should do.
+
+What is quantity in parcel details ?
+
+Can more than two partner register with same company .
+2. To maintain the rating of the partner as well as driver.
+3. When the new order is booked a mail is send to admin with order id.
+4. quote status should be added to the order schema.
+5. While sending quote by admin to customer , quote status and adminAssignedStatus should be maintained.
+
+==================================================
+            TODAYS
+amount , currency type, payment mode
+1. payment , default card
+2. image handling
+3. write logics for app version
+4. lighthouse
+5. schedule time
+6. currency type - order
+7. my booking - send only when driver successfully accepted.
+8. multiple status for multiple delivery point.
+
+
+
